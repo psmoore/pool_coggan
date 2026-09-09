@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hours/Calendar &mdash; Coggan Aquatic Complex</title>
+<meta name="description" content="Hours and calendar for the Coggan Family Aquatic Complex in La Jolla, California.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:      hsl(23.05, 88.94%, 60.98%);
+    --accent-dark: hsl(23.05, 78%, 53%);
+    --blue:        hsl(209.24, 52.89%, 44.12%);
+    --slate:       hsl(212.88, 34.93%, 40.98%);
+    --light-accent:hsl(195.79, 70.37%, 84.12%);
+    --white:       #fff;
+    --header-h:    86px;
+    --font:        "Poppins", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    font-family:var(--font);
+    font-weight:300;
+    color:var(--slate);
+    background:var(--white);
+    line-height:1.6;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit}
+
+  .skip-link{
+    position:absolute;left:-9999px;top:0;z-index:100;
+    background:var(--white);color:var(--blue);padding:12px 20px;
+  }
+  .skip-link:focus{left:0}
+
+  /* ---------------- Header ---------------- */
+  .site-header{
+    position:absolute;top:0;left:0;right:0;z-index:20;
+    height:var(--header-h);
+    display:flex;align-items:center;
+    padding:0 clamp(16px,3vw,48px);
+    gap:24px;
+  }
+  .site-header--stuck{
+    position:fixed;
+    background:var(--blue);
+    box-shadow:0 2px 14px rgba(0,0,0,.18);
+  }
+  .logo img{height:52px;width:auto}
+
+  .nav{margin-left:auto}
+  .nav-list{
+    display:flex;align-items:center;gap:clamp(12px,1.6vw,26px);
+    list-style:none;margin:0;padding:0;
+  }
+  .nav-list > li{position:relative}
+  .nav-link{
+    display:block;
+    color:var(--white);
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    padding:10px 2px;
+    white-space:nowrap;
+    background:none;border:0;font-family:inherit;cursor:pointer;
+  }
+  .nav-link:hover,
+  .nav-link:focus-visible,
+  .nav-link[aria-current="page"],
+  .nav-item--open > .nav-link{text-decoration:underline;text-underline-offset:5px}
+
+  .subnav{
+    position:absolute;top:100%;left:50%;transform:translateX(-50%);
+    min-width:220px;
+    background:var(--white);
+    border-radius:4px;
+    box-shadow:0 10px 30px rgba(0,0,0,.22);
+    list-style:none;margin:0;padding:10px 0;
+    display:none;
+  }
+  .nav-item--open .subnav{display:block}
+  .subnav a{
+    display:block;padding:9px 22px;
+    color:var(--slate);text-decoration:none;
+    font-size:14px;font-weight:400;white-space:nowrap;
+  }
+  .subnav a:hover,.subnav a:focus-visible{background:var(--light-accent)}
+
+  .btn{
+    display:inline-block;
+    background:var(--accent);
+    color:var(--white);
+    text-decoration:none;
+    font-weight:600;
+    font-size:14px;
+    letter-spacing:.04em;
+    padding:13px 26px;
+    border-radius:4px;
+    transition:background .15s ease;
+  }
+  .btn:hover,.btn:focus-visible{background:var(--accent-dark)}
+  .nav-donate{text-transform:uppercase}
+
+  .nav-toggle{
+    display:none;margin-left:auto;
+    background:none;border:0;padding:10px;cursor:pointer;
+    color:var(--white);font-family:inherit;font-size:14px;
+    text-transform:uppercase;letter-spacing:.05em;font-weight:600;
+  }
+
+  /* ---------------- Hero ---------------- */
+  .hero{
+    min-height:42vh;
+    background:var(--blue) url("https://images.squarespace-cdn.com/content/v1/5f43fdecc896a942430fb0ec/1610425064930-CWJUQKTMQZSRZ4PFZ8XE/Coggan_Pool_W_2_LR.jpg?format=2500w") center/cover no-repeat;
+  }
+
+  /* ---------------- Calendar section ---------------- */
+  .section-blue{
+    background:var(--blue);
+    color:var(--white);
+    text-align:center;
+    padding:clamp(40px,6vw,64px) clamp(16px,4vw,48px);
+  }
+  .section-inner{width:92%;max-width:1100px;margin:0 auto}
+
+  .section-blue h1{
+    font-size:clamp(24px,3vw,30px);
+    font-weight:700;
+    margin:0 0 22px;
+    line-height:1.3;
+  }
+  .hours{
+    font-size:clamp(17px,1.6vw,21px);
+    font-weight:300;
+    margin:0;
+  }
+  .rule{
+    border:0;
+    border-top:1px solid rgba(255,255,255,.65);
+    width:78%;
+    max-width:880px;
+    margin:clamp(28px,4vw,44px) auto;
+  }
+  .calendar-label{
+    font-size:clamp(16px,1.5vw,19px);
+    font-weight:300;
+    margin:0 0 clamp(18px,2.5vw,26px);
+  }
+
+  .calendar-embed{
+    max-width:1100px;
+    margin:0 auto;
+    background:var(--white);
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 12px 34px rgba(0,0,0,.18);
+  }
+  .calendar-embed iframe{display:block;width:100%}
+
+  /* ---------------- Footer ---------------- */
+  .site-footer{
+    background:var(--white);
+    color:var(--slate);
+    text-align:center;
+    padding:clamp(40px,5vw,60px) clamp(16px,4vw,48px) clamp(48px,6vw,72px);
+  }
+  .site-footer h2{
+    font-size:clamp(18px,2vw,21px);
+    font-weight:700;
+    margin:0 0 clamp(26px,4vw,42px);
+  }
+  .sponsors{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:clamp(20px,3vw,40px) clamp(16px,3vw,36px);
+    align-items:center;
+    justify-items:center;
+    max-width:1000px;
+    margin:0 auto clamp(30px,4vw,46px);
+  }
+  .sponsors img{
+    max-height:78px;
+    width:auto;
+    object-fit:contain;
+  }
+  .footer-address{
+    font-weight:600;
+    font-size:15px;
+    line-height:1.75;
+    margin:0;
+  }
+  .footer-address a{text-decoration:none}
+  .footer-address a:hover{text-decoration:underline}
+
+  /* ---------------- Responsive ---------------- */
+  @media (max-width:1080px){
+    .nav-list{gap:14px}
+    .nav-link{font-size:13px}
+  }
+  @media (max-width:900px){
+    .nav-toggle{display:block}
+    .nav{
+      position:fixed;inset:0;
+      background:var(--blue);
+      margin:0;
+      padding:calc(var(--header-h) + 16px) 24px 40px;
+      overflow-y:auto;
+      display:none;
+    }
+    .nav--open{display:block}
+    .nav-list{flex-direction:column;align-items:stretch;gap:0}
+    .nav-list > li{border-bottom:1px solid rgba(255,255,255,.2)}
+    .nav-link{font-size:16px;padding:16px 4px;width:100%;text-align:left}
+    .subnav{
+      position:static;transform:none;
+      background:transparent;box-shadow:none;
+      padding:0 0 10px 16px;
+    }
+    .subnav a{color:var(--white);padding:10px 4px}
+    .subnav a:hover,.subnav a:focus-visible{background:transparent;text-decoration:underline}
+    .nav-donate{margin-top:20px}
+    .site-header{background:var(--blue)}
+    .hero{min-height:34vh}
+  }
+  @media (max-width:640px){
+    .sponsors{grid-template-columns:repeat(2,1fr)}
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to Content</a>
+
+<header class="site-header" id="siteHeader">
+  <a class="logo" href="https://www.cogganaquatics.org/" aria-label="Coggan Aquatic Complex home">
+    <img src="https://images.squarespace-cdn.com/content/v1/5f43fdecc896a942430fb0ec/1610227283977-SZ8Y7B1BZQU71DKZXEXT/CFAC_Logo_Color_Side_White-01.png?format=1500w"
+         alt="Coggan Family Aquatic Complex" width="480" height="150">
+  </a>
+
+  <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav">Menu</button>
+
+  <nav class="nav" id="primaryNav" aria-label="Primary">
+    <ul class="nav-list">
+      <li><a class="nav-link" href="https://www.cogganaquatics.org/">Home</a></li>
+      <li><a class="nav-link" href="https://www.cogganaquatics.org/membership">Membership</a></li>
+
+      <li class="nav-item nav-item--folder">
+        <button class="nav-link" aria-expanded="false">Offerings</button>
+        <ul class="subnav">
+          <li><a href="https://www.cogganaquatics.org/lap-swim">Lap Swimming</a></li>
+          <li><a href="https://www.cogganaquatics.org/swim-lessons">Swim Lessons</a></li>
+          <li><a href="https://www.cogganaquatics.org/swim-team">Swim Team</a></li>
+          <li><a href="https://www.cogganaquatics.org/water-polo">Water Polo</a></li>
+          <li><a href="https://www.cogganaquatics.org/masters-swimming">Masters Swimming</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item nav-item--folder">
+        <button class="nav-link" aria-expanded="false">Giving to Coggan</button>
+        <ul class="subnav">
+          <li><a href="https://www.cogganaquatics.org/why-give">Why Give to the Pool</a></li>
+          <li><a href="https://www.cogganaquatics.org/ways-to-give">Ways to Give to the Pool</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item nav-item--folder">
+        <button class="nav-link" aria-expanded="false">About Us</button>
+        <ul class="subnav">
+          <li><a href="https://www.cogganaquatics.org/calendar" aria-current="page">Hours/Calendar</a></li>
+          <li><a href="https://www.cogganaquatics.org/capital-campaign">Capital Campaign</a></li>
+          <li><a href="https://www.cogganaquatics.org/staff">Staff</a></li>
+          <li><a href="https://www.cogganaquatics.org/foundation">Foundation</a></li>
+          <li><a href="https://www.cogganaquatics.org/jobs">Jobs</a></li>
+          <li><a href="https://www.cogganaquatics.org/history">History</a></li>
+        </ul>
+      </li>
+
+      <li><a class="nav-link" href="https://www.cogganaquatics.org/contact">Contact</a></li>
+      <li>
+        <a class="btn nav-donate"
+           href="https://secure.givelively.org/donate/la-jolla-aquatic-complex-foundation">Donate</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<div class="hero" role="img" aria-label="The Coggan Family Aquatic Complex pool deck"></div>
+
+<main id="main">
+  <section class="section-blue">
+    <div class="section-inner">
+      <h1>Hours</h1>
+      <p class="hours">Monday - Friday 6:00am &ndash; 4:00pm &bull; Saturday &amp; Sunday 8:00am &ndash; 4:00pm</p>
+
+      <hr class="rule">
+
+      <p class="calendar-label">Calendar</p>
+
+      <div class="calendar-embed">
+        <iframe src="https://www.poolrelay.com/embed/RYmugKUhh3UViSndkTYwVe" width="100%" height="640" frameborder="0" style="border:0" title="Pool Relay calendar"></iframe>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <h2>We Thank Our Sponsors</h2>
+
+  <div class="sponsors">
+    <img src="https://images.squarespace-cdn.com/content/v1/5f43fdecc896a942430fb0ec/1611186374629-0I82OTRHGNRYTYGFEH6K/CFAC_Sponsor_Cafe_Moto.png?format=750w" alt="Cafe Moto" loading="lazy">
+    <img src="https://images.squarespace-cdn.com/content/v1/5f43fdecc896a942430fb0ec/1611186389366-A3FM43D9N9BPON7L5TQC/CFAC_Sponsor_Capital_Growth.jpg?format=750w" alt="Capital Growth Properties, Inc." loading="lazy">
+    <img src="https://images.squarespace-cdn.com/content/v1/5f43fdecc896a942430fb0ec/639aef3c-5bc3-48d4-9877-0c297f3206cb/Screenshot+2024-03-08+at+1.02.46+PM.png?format=750w" alt="Deep End Fitness" loading="lazy">
+    <img src="https://images.squarespace-cdn.com/content/v1/5f43fdecc896a942430fb0ec/3d456eaf-8dc2-4023-9382-b34067b7c724/Hagan+Ortho+Dental.png?format=750w" alt="Hagan Ortho + Kids Dental" loading="lazy">
+    <img src="https://images.squarespace-cdn.com/content/v1/5f43fdecc896a942430fb0ec/a1f7d642-dc59-4368-8093-9c5cbd76e77d/CFAC_Sponsor_IRA.jpg?format=750w" alt="IRA Resources" loading="lazy">
+    <img src="https://images.squarespace-cdn.com/content/v1/5f43fdecc896a942430fb0ec/fa35b6c4-6799-41ab-bff7-ebc19f7df48f/LJBTC__LJBTC+Logo_v2.jpg?format=750w" alt="La Jolla Beach &amp; Tennis Club" loading="lazy">
+    <img src="https://images.squarespace-cdn.com/content/v1/5f43fdecc896a942430fb0ec/ac6cee0c-0304-4310-8e25-5dbabda1cc69/CFAC_Sponsor_LJ_Manage_Co.jpg?format=750w" alt="La Jolla Management Company" loading="lazy">
+    <img src="https://images.squarespace-cdn.com/content/v1/5f43fdecc896a942430fb0ec/78d20ce2-a241-442a-aa6e-0cfe6263e12c/SH__Logo.png?format=750w" alt="La Jolla Shores Hotel and Restaurant" loading="lazy">
+    <img src="https://images.squarespace-cdn.com/content/v1/5f43fdecc896a942430fb0ec/17d38102-9ca6-427d-b0e5-406615c22ff7/LJ+Village+Ortho.png?format=750w" alt="La Jolla Village Orthodontics" loading="lazy">
+    <img src="https://images.squarespace-cdn.com/content/v1/5f43fdecc896a942430fb0ec/3de71971-9388-4e2e-a25f-7deb4bbdc659/MR_1_Main-LogoMarineBlue2.png?format=750w" alt="The Marine Room" loading="lazy">
+    <img src="https://images.squarespace-cdn.com/content/v1/5f43fdecc896a942430fb0ec/1611186500912-LV4ZDL7QJZFJ2QPSXCU4/CFAC_Sponsor_Willis_Allen.png?format=750w" alt="Willis Allen Real Estate" loading="lazy">
+  </div>
+
+  <p class="footer-address">
+    Coggan Family Aquatic Complex<br>
+    800 Nautilus Street La Jolla, CA 92037<br>
+    Tel <a href="tel:+18584560945">858-456-0945</a>
+  </p>
+</footer>
+
+<script>
+  // Folder dropdowns: hover on desktop, click/keyboard everywhere.
+  var folders = document.querySelectorAll('.nav-item--folder');
+
+  function closeAll(except) {
+    folders.forEach(function (f) {
+      if (f === except) return;
+      f.classList.remove('nav-item--open');
+      f.querySelector('.nav-link').setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  folders.forEach(function (folder) {
+    var trigger = folder.querySelector('.nav-link');
+
+    trigger.addEventListener('click', function () {
+      var open = folder.classList.toggle('nav-item--open');
+      trigger.setAttribute('aria-expanded', String(open));
+      closeAll(folder);
+    });
+
+    folder.addEventListener('mouseenter', function () {
+      if (window.matchMedia('(min-width: 901px)').matches) {
+        closeAll(folder);
+        folder.classList.add('nav-item--open');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    folder.addEventListener('mouseleave', function () {
+      if (window.matchMedia('(min-width: 901px)').matches) {
+        folder.classList.remove('nav-item--open');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.nav-item--folder')) closeAll(null);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeAll(null);
+  });
+
+  // Mobile menu
+  var toggle = document.getElementById('navToggle');
+  var nav = document.getElementById('primaryNav');
+  toggle.addEventListener('click', function () {
+    var open = nav.classList.toggle('nav--open');
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.textContent = open ? 'Close' : 'Menu';
+  });
+
+  // Header turns solid once the hero has scrolled past.
+  var header = document.getElementById('siteHeader');
+  var hero = document.querySelector('.hero');
+  window.addEventListener('scroll', function () {
+    var past = window.scrollY > hero.offsetHeight - 100;
+    header.classList.toggle('site-header--stuck', past);
+  }, { passive: true });
+</script>
+
+</body>
+</html>
