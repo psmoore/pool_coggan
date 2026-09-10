@@ -4,7 +4,9 @@ A standalone preview of the Coggan Family Aquatic Complex **Hours/Calendar** pag
 with the live Pool Relay schedule embedded in place of the linked PDF button.
 
 Not the official Coggan Aquatic Complex website. The official site is
-<https://www.cogganaquatics.org>. This is a working preview of one proposed change to it.
+<https://www.cogganaquatics.org>. This is a working preview of one proposed change to it,
+and the page says so in a ribbon across the top — a disclaimer only in the source is one
+nobody opening the page can see.
 
 ## What it is
 

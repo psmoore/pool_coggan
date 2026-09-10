@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
 <title>Hours/Calendar &mdash; Coggan Aquatic Complex</title>
 <meta name="description" content="Hours and calendar for the Coggan Family Aquatic Complex in La Jolla, California.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +20,22 @@
     --header-h:    86px;
     --font:        "Poppins", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
+
+  /* Unofficial-preview ribbon. The disclaimer used to live in an HTML comment, which
+     nobody opening the page can see; on a replica of a real facility's page it has to be
+     visible. Dark, so it reads as something wrapped AROUND the page rather than part of
+     Coggan's own chrome. */
+  .preview-note{
+    background:#2b2b2b;color:#fff;font-weight:400;font-size:14px;line-height:1.5;
+    padding:9px 18px;text-align:center;
+  }
+  .preview-note b{color:var(--accent);font-weight:600}
+  .preview-note a{color:#fff}
+  /* The site header is `position:absolute; top:0`, so with no positioning context of its
+     own it anchors to the viewport and sits ON TOP of the ribbon. This wrapper is what it
+     measures from instead, so the ribbon's height — one line or three, depending on how
+     narrow the screen is — never has to be known in advance. */
+  .page-shell{position:relative}
 
   *,*::before,*::after{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
@@ -237,8 +254,15 @@
 </head>
 <body>
 
+<div class="preview-note">
+  <b>Unofficial preview.</b> Not a Coggan Aquatic Complex page &mdash; a mock-up of
+  <a href="https://www.cogganaquatics.org/hourscalendar">their Hours/Calendar page</a>
+  showing the linked PDF replaced by a live calendar.
+</div>
+
 <a class="skip-link" href="#main">Skip to Content</a>
 
+<div class="page-shell">
 <header class="site-header" id="siteHeader">
   <a class="logo" href="https://www.cogganaquatics.org/" aria-label="Coggan Aquatic Complex home">
     <img src="https://images.squarespace-cdn.com/content/v1/5f43fdecc896a942430fb0ec/1610227283977-SZ8Y7B1BZQU71DKZXEXT/CFAC_Logo_Color_Side_White-01.png?format=1500w"
@@ -334,6 +358,7 @@
     Tel <a href="tel:+18584560945">858-456-0945</a>
   </p>
 </footer>
+</div><!-- /.page-shell -->
 
 <script>
   // Folder dropdowns: hover on desktop, click/keyboard everywhere.
