@@ -48,3 +48,10 @@ note to check the calendar for details and exceptions.
 A replica of <https://www.cogganaquatics.org/masters-swimming> with **Fees** moved above **Schedule**, and the
 **Coggan Masters** calendar (`90CP8Y8Hpp01xDF77jp75m`, locked to Coggan and to the Masters group) below the
 typical schedule, which is typed as on their page with the same note.
+
+## Swim Lessons page (`swim-lessons/`)
+
+A replica of <https://www.cogganaquatics.org/swim-lessons>. Private lessons run "7 days a week during normal pool
+operation hours", so the page embeds the pool's live calendar (`RYmugKUhh3UViSndkTYwVe`) under "When the pool is
+open" for families choosing times to email. The fee lists and the summer level-by-time list become tables. No
+lessons are entered in Pool Relay yet, so the summer session dates and class times stay typed as on Coggan's page.
