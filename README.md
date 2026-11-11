@@ -40,6 +40,12 @@ Then open <http://localhost:8791/>.
 ## Lap Swimming page (`lap-swim/`)
 
 A replica of <https://www.cogganaquatics.org/lap-swim> with the **Coggan lap swim** calendar
-(`uEZ7Si19X39moM3r7zOjW7`) embedded below the hours line. The hours line is not typed: `lap-swim/live.js`
+(`uEZ7Si19X39moM3r7zOjW7`) embedded below the hours line. The hours line is not typed: `live.js`
 (`data-live="summary"`) writes this week's lap swim hours, Monday to Sunday, from the same published
 schedule, filtered to the Lap Swim group.
+
+## Masters Swimming page (`masters-swimming/`)
+
+A replica of <https://www.cogganaquatics.org/masters-swimming> with **Fees** moved above **Schedule**, and the
+**Coggan Masters** calendar (`90CP8Y8Hpp01xDF77jp75m`, locked to Coggan and to the Masters group) below the
+schedule line. The schedule line is written by `live.js` from the same feed, filtered to Masters.

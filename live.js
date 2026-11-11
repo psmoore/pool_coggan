@@ -90,7 +90,7 @@
       for (let i = 0; i < 7; i++) {
         const d = addDays(monday, i);
         const s = stretches(list, d);
-        const text = s.length ? s.map(([a, b]) => `${clock0(a)} – ${clock0(b)}`).join(" &amp; ") : esc(el.dataset.none || "closed");
+        const text = s.length ? s.map(([a, b]) => `${clock0(a)} – ${clock0(b)}`).join(esc(el.dataset.join || " & ")) : esc(el.dataset.none || "closed");
         const last = days[days.length - 1];
         if (last && last.text === text) last.to = d; else days.push({ from: d, to: d, text });
       }
