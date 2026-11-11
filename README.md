@@ -36,3 +36,10 @@ python3 -m http.server 8791
 ```
 
 Then open <http://localhost:8791/>.
+
+## Lap Swimming page (`lap-swim/`)
+
+A replica of <https://www.cogganaquatics.org/lap-swim> with the **Coggan lap swim** calendar
+(`uEZ7Si19X39moM3r7zOjW7`) embedded below the hours line. The hours line is not typed: `lap-swim/live.js`
+(`data-live="summary"`) writes this week's lap swim hours, Monday to Sunday, from the same published
+schedule, filtered to the Lap Swim group.
